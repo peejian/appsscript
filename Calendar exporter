@@ -1,0 +1,47 @@
+/**
+ * function to populate calendars with Mona's flights 
+ */
+
+function monaFlights() {
+
+  //get data
+  const ss =  SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.getSheetByName('Sheet1');
+  const data = sheet.getDataRange().getValues();
+
+  //remove header
+  data.shift(); 
+
+  //get cal
+  const cal = CalendarApp.getCalendarById('pjsneah@gmail.com');
+  //console.log(data);
+
+    data.forEach( row => {
+
+      //get data
+      const departureStartDate= row[10];
+      const arrivalStartDate = row[12];
+      const titleDepart = row[13];
+      const titleArrival =row[14];
+
+      const endTime = createEndTime(departureStartDate);
+      const endTime2 = createEndTime(arrivalStartDate) 
+      cal.createEvent(titleDepart,departureStartDate,endTime);
+      cal.createEvent(titleArrival,arrivalStartDate,endTime2);
+      
+      
+    });
+}
+
+function createEndTime(time){
+
+  const newTime = new Date(time);
+
+  const hrs = 1
+
+  const newHours = newTime.getHours() + hrs;
+
+  newTime.setHours(newHours);
+
+  return newTime;
+}
