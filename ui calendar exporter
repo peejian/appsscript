@@ -1,0 +1,8 @@
+
+  function onOpen() {
+    SpreadsheetApp.getUi() 
+      .createMenu('Export to Calendar')
+      .addItem('Export', 'monaFlights')
+      .addToUi();
+}
+
