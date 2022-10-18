@@ -1,0 +1,39 @@
+function saveAttachmentInFolder(){
+
+  const folder = DriveApp.getFolderById('xxxxxxxxxxxxxxxxxxxxxxxx');
+  
+  const userId = "xxxxxxxxxxx";
+  
+  const query = "payslip";
+
+  const result = 1
+  
+  const res = Gmail.Users.Messages.list(userId, {maxResults: 1, q: query});//I assumed that this works
+  
+  res.messages.forEach(function(m){
+    
+    const attA=GmailApp.getMessageById(m.id).getAttachments();
+    
+     attA.forEach(function(a){
+      
+
+      let name = a.getName();
+      
+      const newName = name[20] + name[21] + name[15] + name [16] + name [12] + name [13];
+
+      //console.log(newName);
+
+      name = newName;
+      
+      console.log(name);
+
+      //console.log(newName2);
+
+      folder.createFile(a.copyBlob()).setName(name);
+      
+      
+      
+    
+    });
+  });
+}
